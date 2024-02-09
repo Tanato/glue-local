@@ -1,0 +1,38 @@
+{
+  "name": "ml-glue-4",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      "GLUE_VERSION": "4.0.0",
+      "DELTA_LAKE_VERSION": "2.1.0"
+    }
+  },
+  "forwardPorts": [
+    4040,
+    18080
+  ],
+  "containerEnv": {
+    "DISABLE_SSL": "true",
+    "DATALAKE_FORMATS": "delta,hudi,iceberg"
+  },
+  "mounts": [
+    //"source=${localEnv:USERPROFILE}${localEnv:HOME}/.aws,target=/home/glue_user/.aws,readonly,type=bind"
+  ],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/home/glue_user/workspace,type=bind",
+  "workspaceFolder": "/home/glue_user/workspace",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "ms-python.flake8",
+        "ms-python.autopep8"
+      ],
+      "settings": {
+        "python.defaultInterpreterPath": "/usr/local/bin/python3",
+        "python.analysis.extraPaths": [
+          "/home/glue_user/aws-glue-libs/PyGlue.zip:/home/glue_user/spark/python/lib/py4j-0.10.9-src.zip:/home/glue_user/spark/python/"
+        ]
+      }
+    }
+  }
+}
